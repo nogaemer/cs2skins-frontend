@@ -107,3 +107,51 @@ export interface SkinListResponse {
     content: SkinSummary[];
     page: PageMeta;
 }
+
+
+export interface SkinCollectionRef {
+    id: string;
+    name: string;
+    imageUrl?: string | null;
+}
+
+export interface SkinRarityRef {
+    id: number;
+    name: string;
+    colorHex: string | null;
+}
+
+export interface SkinVariantDetail {
+    type: "normal" | "stattrak" | "souvenir";
+    itemId: string;
+    pricesByWear: SkinPriceByWear[];
+}
+
+export interface SkinDetail {
+    id: string;
+    name: string;
+    marketHashName: string;
+    collection: SkinCollectionRef | null;
+    rarity: SkinRarityRef | null;
+    weaponName: string | null;
+    minFloat: number;
+    maxFloat: number;
+    stattrak: boolean;
+    souvenir: boolean;
+    imageUrl: string | null;
+    variants: SkinVariantDetail[];
+}
+
+export interface PriceHistoryPoint {
+    observedAt: string;
+    averagePrice: number;
+    volume24h: number;
+    liquidityScore: number;
+}
+
+export interface PriceHistoryResponse {
+    itemId: string;
+    wearBucket: string;
+    window: string;
+    points: PriceHistoryPoint[];
+}

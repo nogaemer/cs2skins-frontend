@@ -1,12 +1,12 @@
 import type {
     CollectionDetail,
-    CollectionListResponse, SkinFilters, SkinListResponse,
+    CollectionListResponse, PriceHistoryResponse, SkinDetail, SkinFilters, SkinListResponse,
 } from "@/lib/types";
 
-const BASE_URL = process.env.BACKEND_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 if (!BASE_URL) {
-    throw new Error("BACKEND_URL is not set in .env.local");
+    throw new Error("NEXT_PUBLIC_BACKEND_URL is not set in .env.local");
 }
 
 /**
@@ -104,6 +104,20 @@ export async function fetchSkins(
     });
 }
 
+export async function fetchSkin(id: string): Promise<SkinDetail> {
+    return apiGet<SkinDetail>(`/skins/${id}`);
+}
+
+export async function fetchPriceHistory(
+    itemId: string,
+    wearBucket: string,
+    window: string = "30d",
+): Promise<PriceHistoryResponse> {
+    return apiGet<PriceHistoryResponse>(
+        `/skins/${itemId}/price-history`,
+        { wearBucket, window },
+    );
+}
 
 // ----------------------------------------------------------------------
 // Admin example POST functions (will be used later)
